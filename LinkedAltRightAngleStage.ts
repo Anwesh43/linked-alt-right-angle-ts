@@ -126,7 +126,7 @@ class ARANode {
             this.prev.draw(context)
         }
         context.save()
-        context.translate(gap/10 + (this.i * gap) + dist, h - gap /10 - (this.i * gap) - dist)
+        context.translate(gap/10 + (this.i * gap - gap) + dist, h - gap /10 - (this.i * gap - gap + gap/3) - dist)
         var index : number = this.i%2
         var scale : number = index * (1 - this.state.scales[1]) + (this.state.scales[1]) * (1 - index)
         context.lineCap = 'round'
