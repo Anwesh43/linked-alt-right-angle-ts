@@ -38,6 +38,12 @@ class LinkedAltRightAngleStage {
             })
         }
     }
+
+    static init() {
+        const stage : LinkedAltRightAngleStage = new LinkedAltRightAngleStage()
+        stage.render()
+        stage.handleTap()
+    }
 }
 
 class ARAState {
