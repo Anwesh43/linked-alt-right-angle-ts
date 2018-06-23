@@ -58,5 +58,25 @@ class ARAState {
             startcb()
         }
     }
+}
 
+class ARAAnimator {
+    animated : boolean = false
+
+    interval : number
+
+    start(cb : Function) {
+        if (!this.animated) {
+            this.interval = setInterval(() => {
+                cb()
+            }, 50)
+        }
+    }
+
+    stop() {
+        if (this.animated) {
+            this.animated = false
+            clearInterval(this.interval)
+        }
+    }
 }
