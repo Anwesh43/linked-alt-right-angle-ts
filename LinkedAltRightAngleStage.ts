@@ -184,3 +184,5 @@ class LinkedAltRightAngle {
         this.curr.startUpdating(startcb)
     }
 }
+
+LinkedAltRightAngleStage.init()
