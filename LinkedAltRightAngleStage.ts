@@ -21,6 +21,7 @@ class LinkedAltRightAngleStage {
     }
 
     render() {
+        this.context.clearRect(0, 0, w, h)
         this.context.fillStyle = '#212121'
         this.context.fillRect(0, 0, w, h)
         this.lara.draw(this.context)
@@ -84,6 +85,7 @@ class ARAAnimator {
 
     start(cb : Function) {
         if (!this.animated) {
+            this.animated = true
             this.interval = setInterval(() => {
                 cb()
             }, 50)
@@ -119,11 +121,12 @@ class ARANode {
 
     draw(context : CanvasRenderingContext2D) {
         const gap : number = (0.9 * Math.min(w, h)) / ARA_NODES
+        const dist : number = gap * this.state.scales[0]
         if (this.prev) {
             this.prev.draw(context)
         }
         context.save()
-        context.translate(gap/10 + (this.i * gap) + gap * this.state.scales[0], h - gap /10 - (this.i * gap))
+        context.translate(gap/10 + (this.i * gap) + dist, h - gap /10 - (this.i * gap) + dist)
         var index : number = this.i%2
         var scale : number = index * (1 - this.state.scales[1]) + (this.state.scales[1]) * (1 - index)
         context.lineCap = 'round'
@@ -132,8 +135,9 @@ class ARANode {
         for(var i = 0; i < 2; i++) {
             context.save()
             context.rotate(scale * i * -Math.PI/2)
+            context.beginPath()
             context.moveTo(0, 0)
-            context.lineTo(0, gap)
+            context.lineTo(gap, 0)
             context.stroke()
             context.restore()
         }
