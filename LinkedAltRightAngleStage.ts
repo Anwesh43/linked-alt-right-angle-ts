@@ -89,23 +89,26 @@ class ARANode {
 
     prev : ARANode
 
-    constructor(private i : Int) {
+    constructor(private i : number) {
         this.addNeighbor()
     }
 
     addNeighbor() {
         if (this.i < ARA_NODES - 1) {
-            next = ARANode(this.i + 1)
-            next.prev = this
+            this.next = new ARANode(this.i + 1)
+            this.next.prev = this
         }
     }
 
     draw(context : CanvasRenderingContext2D) {
         const gap : number = (0.9 * Math.min(w, h)) / ARA_NODES
+        if (this.prev) {
+            this.prev.draw(context)
+        }
         context.save()
         context.translate(gap/10 + (this.i * gap) + gap * this.state.scales[0], h - gap /10 - (this.i * gap))
         var index : number = this.i%2
-        var scale = index * (1 - this.state.scales[1]) + (this.state.scales[1]) * (1 - index)
+        var scale : number = index * (1 - this.state.scales[1]) + (this.state.scales[1]) * (1 - index)
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / 60
         context.strokeStyle = '#9b59b6'
