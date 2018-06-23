@@ -6,6 +6,9 @@ class LinkedAltRightAngleStage {
 
     context : CanvasRenderingContext2D
 
+    lara : LinkedAltRightAngle = new LinkedAltRightAngle()
+
+    animator : ARAAnimator = new ARAAnimator()
     constructor() {
         this.initCanvas()
     }
@@ -20,11 +23,19 @@ class LinkedAltRightAngleStage {
     render() {
         this.context.fillStyle = '#212121'
         this.context.fillRect(0, 0, w, h)
+        this.lara.draw(this.context)
     }
 
     handleTap() {
         this.canvas.onmousedown = () => {
-
+            this.lara.startUpdating(() => {
+                this.animator.start(() => {
+                    this.render()
+                    this.lara.update(() => {
+                        this.animator.stop()
+                    })
+                })
+            })
         }
     }
 }
